@@ -2,154 +2,178 @@
 
 ## Overview
 
-This project is a hardware-software co-design project for a two-wheeled autonomous robot using a Cypress PSoC development kit. The robot was designed to navigate a projected maze, follow line paths, detect junctions, and collect target points in a predefined sequence.
+This project is a hardware-software co-design project built around a Cypress PSoC embedded platform. The objective was to develop a two-wheeled autonomous robot capable of navigating a projected maze, following paths, detecting junctions, and collecting target points in a predefined order.
 
-The system combines phototransistor sensors, analogue signal conditioning, ADC-based sensor reading, FSM-based turning logic, and motor control to produce autonomous movement on physical hardware.
+The system combines phototransistor sensors, analogue signal conditioning, ADC-based sensing, finite state machine (FSM) control, and motor actuation to produce autonomous behaviour on real hardware.
 
-This repository is a portfolio case study based on a university group project. It focuses on my individual contributions in ADC reading, sensor processing, filter design, and FSM-based turning logic.
+This repository serves as a portfolio case study focusing on my contributions to:
 
----
-
-## Demo
-
-### Robot Walking Demo
-
-[Watch the robot demo video](media/robot_demo.mp4)
-
-
----
-
-## Hardware Photos
-
-### Robot Body
-
-![Robot Body](media/robot.jpg)
-
-
----
-
-## System Highlights
-
-This project demonstrates:
-
-* Embedded control logic on Cypress PSoC
-* ADC-based sensor reading
-* Phototransistor line detection
-* FSM-based turning control
+* ADC sensor reading
+* Signal filtering
+* FSM-based turning logic
 * Hardware-software integration
-* Real-world debugging of sensor and movement behaviour
-* Iterative testing on physical hardware
+* Embedded system testing and debugging
 
 ---
 
-## System Design
+# Demo
 
-The robot used multiple phototransistor sensors to detect projected light and dark regions on the maze path. Sensor readings were processed through analogue filtering and ADC threshold detection before being used by the control logic.
+## Robot Walking Demo
 
-The overall control flow can be summarised as:
+![Robot Demo](media/robot_demo.gif)
 
-```text
-Phototransistor Sensors
-        ↓
-Signal Conditioning / Filtering
-        ↓
-ADC Reading on PSoC
-        ↓
-Threshold-Based Line Detection
-        ↓
-FSM Turning Logic
-        ↓
-Motor Control
-        ↓
-Robot Movement
-```
-
-The robot relied on front sensors for junction detection and inner sensors for path correction. This allowed the robot to both follow straight paths and detect when it needed to turn.
 
 ---
 
-## Sensor and ADC Processing
+# Hardware Platform
 
-Phototransistor sensors were used to detect the difference between projected line regions and background regions. Because ambient lighting affected the raw sensor signal, analogue filtering was used to reduce noise and improve signal reliability.
+## Robot Overview
 
-The processed sensor signals were then sampled through the PSoC ADC. Threshold-based detection was used to classify whether each sensor was over the projected line or not.
+![Robot Overview](media/robot.jpg)
 
-### Sensor Reading Graph
+The robot platform consists of:
 
-![Sensor Reading Graph](media/sensor_reading_graph.png)
-
-> Insert the sensor voltage reading graph here.
-> Suggested filename: `media/sensor_reading_graph.png`
+* Cypress PSoC development board
+* Two DC motors
+* Differential drive chassis
+* Six phototransistor sensors
+* Custom sensor circuitry
+* Embedded control software
 
 ---
 
-## FSM-Based Turning Logic
+# Sensor System
 
-The robot movement controller was implemented using a finite state machine. The FSM determined the robot's behaviour based on sensor readings and movement instructions.
+## Sensor Layout
 
-Main movement states included:
+![Sensor Layout](media/301_sensor playment.jpeg)
 
-* Decision state
-* Forward state
-* Left turn
-* Right turn
-* U-turn
-* Final stopping behaviour
+Six phototransistor sensors were used for path detection.
 
-The decision state selected the next movement instruction, while the turning states controlled motor behaviour until the robot reacquired the path line.
+Sensor responsibilities:
 
-### Turning FSM Diagram
+| Sensor | Purpose                               |
+| ------ | ------------------------------------- |
+| 1–5    | Line following and junction detection |
+| 6      | Turn completion detection             |
+
+Sensor values were sampled through the PSoC ADC and processed using threshold-based detection logic.
+
+---
+
+## Sensor Processing
+
+Ambient lighting introduced significant noise into the phototransistor signals.
+
+To improve reliability:
+
+* Analogue high-pass filtering was implemented.
+* Sensor thresholds were experimentally calibrated.
+* ADC readings were analysed under different operating conditions.
+
+### Sensor Reading Analysis
+
+![Sensor Reading Graph](media/left_turn.png)
+
+This testing process was used to determine reliable detection thresholds for line tracking and junction identification.
+
+---
+
+# Navigation Logic
+
+## FSM-Based Turning Control
+
+The robot's movement controller was implemented as a finite state machine.
+
+Main states included:
+
+* Decision State
+* Forward State
+* Left Turn
+* Right Turn
+* U-Turn
+* Final State
+
+The FSM determines movement behaviour using sensor input and path instructions.
+
+### Turning FSM
 
 ![Turning FSM](media/turning_fsm.png)
 
-> Insert the turning logic FSM diagram here.
-> Suggested filename: `media/turning_fsm.png`
+---
+
+## Turn Completion Logic
+
+One challenge encountered during development was reducing turn overshoot.
+
+The following diagram illustrates how sensor placement was used to determine when the robot had successfully completed a turn and could transition back to the forwarding state.
+
+![Turning Logic Demo](media/turning_logic_demo.png)
+
+By combining sensor readings with FSM state transitions, the robot could:
+
+* Detect junctions
+* Execute turns
+* Reacquire the path
+* Resume normal line following
+
+This significantly improved navigation accuracy.
 
 ---
 
-## My Contributions
+# My Contributions
 
-My main contributions focused on embedded sensing and control logic.
+My primary responsibilities included:
 
-* Contributed to filter design for reducing ambient lighting interference in sensor readings.
-* Worked on ADC reading and threshold-based detection for phototransistor sensors.
-* Designed and implemented FSM-based turning logic for robot navigation.
-* Integrated sensor input with motor control decisions for path correction and junction handling.
-* Tested and refined turning behaviour to reduce overshooting and improve movement reliability.
-* Collaborated with teammates responsible for pathfinding, PCB design, soldering, and motor control integration.
+* Designing FSM-based turning logic
+* Implementing ADC sensor reading
+* Developing threshold-based line detection
+* Contributing to analogue filter design
+* Integrating sensor input with movement decisions
+* Testing and refining turning behaviour to reduce overshooting
+
+I worked closely with teammates responsible for pathfinding, PCB design, soldering, and motor control integration.
 
 ---
 
-## Testing and Debugging
+# Testing and Debugging
 
-Testing was performed on physical hardware under realistic lighting and movement conditions. Key debugging areas included:
+Development involved extensive testing on physical hardware.
 
-* Sensor readings affected by ambient lighting
-* ADC threshold tuning
-* Robot drifting away from the path
-* Overshooting during turns
+Key challenges included:
+
+* Ambient lighting interference
+* Sensor calibration
+* Turn overshoot
 * Junction detection reliability
-* Coordination between sensor input and motor response
+* Sensor-to-motor response timing
 
-One important improvement was refining the turning logic to reduce overshooting. Instead of relying only on the centre sensor, additional sensors were used to detect when the robot had correctly realigned with the path.
+Multiple iterations of testing and refinement were required before stable navigation behaviour was achieved.
 
 ---
 
-## Relevance to Firmware Engineering
+# Firmware Engineering Relevance
 
-This project is highly relevant to firmware and embedded systems because it required software to interact directly with real hardware.
+This project demonstrates several firmware and embedded systems concepts:
 
-Key firmware-related concepts demonstrated:
+* ADC-based sensor acquisition
+* Real-time control logic
+* Finite state machine design
+* Hardware-software integration
+* Signal conditioning
+* Embedded debugging
+* Physical system testing
 
-* Reading and interpreting sensor data
-* Working with ADC input
-* Designing deterministic FSM control logic
-* Integrating software decisions with physical motor behaviour
-* Debugging hardware-dependent issues
-* Testing and refining behaviour on a real embedded platform
+The project strengthened my understanding of how sensor inputs, control logic, and actuators interact within a real embedded system.
 
-The project strengthened my understanding of how firmware connects sensors, control logic, and actuators in a physical system.
+---
 
+# Future Improvements
 
-```
-```
+Potential future work includes:
+
+* PID-based path correction
+* Sensor auto-calibration
+* Telemetry logging for debugging
+* More advanced path planning
+* Improved modularisation of control logic
