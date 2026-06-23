@@ -46,7 +46,7 @@ The robot platform consists of:
 
 ## Sensor Layout
 
-![Sensor Layout](media/301_sensor playment.jpeg)
+![Sensor Layout](media/301_sensor playment.jpg)
 
 Six phototransistor sensors were used for path detection.
 
@@ -108,7 +108,7 @@ One challenge encountered during development was reducing turn overshoot.
 
 The following diagram illustrates how sensor placement was used to determine when the robot had successfully completed a turn and could transition back to the forwarding state.
 
-![Turning Logic Demo](media/turning_logic_demo.png)
+![Turning Logic Demo](media/left_turn.png)
 
 By combining sensor readings with FSM state transitions, the robot could:
 
