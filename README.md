@@ -20,7 +20,9 @@ This repository serves as a portfolio case study focusing on my contributions to
 
 ## Robot Walking Demo
 
-![Robot Demo](media/robot_demo.gif)
+<p align="center">
+  <img src="media/%20%20robot_demo.gif" width="200">
+</p>
 
 
 ---
@@ -29,7 +31,9 @@ This repository serves as a portfolio case study focusing on my contributions to
 
 ## Robot Overview
 
-![Robot Overview](media/robot.jpg)
+<p align="center">
+  <img src="media/robot.jpg" width="200">
+</p>
 
 The robot platform consists of:
 
@@ -46,7 +50,9 @@ The robot platform consists of:
 
 ## Sensor Layout
 
-![Sensor Layout](media/301_sensor playment.jpg)
+<p align="center">
+  <img src="media/301_sensor%20playment.jpg" width="200">
+</p>
 
 Six phototransistor sensors were used for path detection.
 
@@ -73,7 +79,9 @@ To improve reliability:
 
 ### Sensor Reading Analysis
 
-![Sensor Reading Graph](media/left_turn.png)
+<p align="center">
+  <img src="media/sensor_signal.png" width="700">
+</p>
 
 This testing process was used to determine reliable detection thresholds for line tracking and junction identification.
 
@@ -98,7 +106,9 @@ The FSM determines movement behaviour using sensor input and path instructions.
 
 ### Turning FSM
 
-![Turning FSM](media/turning_fsm.png)
+<p align="center">
+  <img src="media/turning_fsm.png" width="600">
+</p>
 
 ---
 
